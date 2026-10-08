@@ -1,0 +1,18 @@
+import pandas as pd
+import numpy as np
+df = pd.read_parquet("/Users/crookshanks/Desktop/Network Security/cic-collection.parquet")
+print(df.head())
+print(df.shape)
+print(df.info())
+print(df.columns)
+print(df.isnull().sum())
+print(df.duplicated().sum())
+print(df["Label"].value_counts())
+print(df["Label"].nunique())
+print(df.dtypes)
+print(df.describe())
+df = df.drop_duplicates()
+print(np.isinf(df.select_dtypes(include=[np.number])).sum())
+print(df[df["Flow Duration"] < 0].shape)
+df.to_csv("cleaned_dataset.csv", index=False)
+df.to_parquet("cleaned_dataset.parquet", index=False)
